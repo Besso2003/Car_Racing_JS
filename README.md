@@ -1,88 +1,61 @@
-# Tic-Tac-Football
+# Car Racing
 
 ## Game Name
-Tic-Tac-Football
-
----
+Car Racing
 
 ## Team Members
-- Bassant Ali Kamal
-- Heba Maher Abdelrahman
-- Ibrahim Elsayed Mostafa
-- Mostafa Ahmed Ibrahim
-- Sherif Mohammed Mohammed
-- Shahd Mohammed Ramadan
-
----
+1. Bassant Ali Kamal  
+2. Heba Maher Abdelrahman  
+3. Ibrahim Elsayed Mostafa  
+4. Mostafa Ahmed Ibrahim  
+5. Sherif Mohammed Mohammed  
+6. Shahd Mohammed Ramadan  
 
 ## Game Idea
-Tic-Tac-Football is a two-player strategy game inspired by the classic Tic-Tac-Toe with a football-themed twist. Each row and column represents a football team, and players must place valid football players who have played for both teams.
-
----
+A fast-paced arcade game where the player controls a car moving left and right to avoid obstacles on a busy road. The game gradually increases in speed and difficulty over time, with more obstacles appearing as the player survives longer. Colliding with an obstacle immediately ends the game, requiring quick reflexes and focus from the player.  
 
 ## Game Objectives
-
-### Player Goal
-- Be the first player to align three cells in a row, column, or diagonal.
-
-### Win Conditions
-- A player wins by completing a straight line (row, column, or diagonal).
-
-### Lose Conditions
-- The opponent completes a winning line first.
-
-### Draw Conditions
-- All cells are filled without a winner.
-- Either player can request a draw; the opponent can accept, ending the game as a draw, or reject and continue playing.
-
----
+- **Player Goal:** Avoid obstacles and survive as long as possible to achieve a high score.  
+- **Win Condition:** There is no fixed win; the goal is to reach the highest possible score.  
+- **Lose Condition:** The game ends immediately when the player’s car collides with an obstacle.  
 
 ## Planned Features
 
 ### Mandatory Features
-- 3×3 grid-based game board
-- Two-player turn-based gameplay
-- Keyboard and mouse interaction
-- Move validation based on football teams
-- Win, lose, and draw detection
-- Scoring system
-- Save progress using `localStorage`
-- Responsive and acceptable UI design
+- Player car movement (left/right) using keyboard controls  
+- Randomly generated falling obstacles  
+- Increasing speed over time to make the game harder  
+- Increasing number of obstacles as time progresses  
+- Collision detection between the player car and obstacles  
+- Score tracking based on survival time or distance  
+- Progress saved in the browser using local storage  
 
 ### Bonus Features
-- Highlight winning cells
-- Restart and new game options
-- Draw request system
-- Match history tracking
-- Sound effects (optional)
-
----
+- Multiple road lanes  
+- Animated road background  
+- Sound effects  
 
 ## High-Level Game Flow
-- Start screen
-- Players start the game
-- Players take turns selecting cells
-- Player enters a valid football player name
-- Game checks for win or draw after each turn
-- Score is updated
-- Game data is saved in the browser
-- Players can restart or play another match
-
----
+1. Start screen displays the game title and controls  
+2. Player starts the game  
+3. Obstacles fall from the top of the road  
+4. Obstacle speed gradually increases over time  
+5. More obstacles appear as the game progresses  
+6. Player moves left/right to avoid obstacles  
+7. Score increases with survival time  
+8. Collision ends the game immediately  
+9. Game over screen displays the final score and optionally saves it in the browser  
 
 ## Team Responsibilities
 
-| Team Member Name            | Responsibility                                   |
-|----------------------------|--------------------------------------------------|
-| Bassant Ali Kamal           | Win detection logic                               |
-| Heba Maher Abdelrahman      | Draw detection & draw request feature             |
-| Ibrahim Elsayed Mostafa     | Player input handling & move validation           |
-| Sherif Mohammed Mohammed   | Score tracking & saving progress using localStorage |
-| Mostafa Ahmed Ibrahim      | UI design & styling (HTML & CSS)                  |
-| Shahd Mohammed Ramadan     | Game flow control & bonus features                |
-
-
----
+| Team Member | Responsibility |
+|------------|-----------------|
+| Bassant Ali Kamal | Game logic and player movement |
+| Heba Maher Abdelrahman | Score calculation and saving progress |
+| Ibrahim Elsayed Mostafa | Obstacle generation and collision detection |
+| Sherif Mohammed Mohammed | Difficulty scaling and game flow |
+| Mostafa Ahmed Ibrahim | Bonus features and testing |
+| Shahd Mohammed Ramadan | UI design and road styling |
 
 ## GitHub Repository
-🔗 https://github.com/Besso2003/Tic-Tac-Football_JS.git
+[https://github.com/Besso2003/Car_Racing_JS](https://github.com/Besso2003/Car_Racing_JS)
