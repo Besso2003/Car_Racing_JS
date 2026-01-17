@@ -3,9 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Car Racing Game</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/road.css">
+    <link rel="stylesheet" href="css/ui.css">
 </head>
 <body>
-    
+    <div id="game-container">
+        <!-- Road -->
+        <div class="road">
+            <div class="lane-marker left"></div>
+            <div class="lane-marker right"></div>
+        </div>
+
+        <!-- Start Screen -->
+        <div id="start-screen" class="screen">
+            <div class="screen-content">
+                <h1>🏁 CAR RACING 🏁</h1>
+                <div class="checkered-flag"></div>
+                <div class="instructions">
+                    <p>USE <strong>← →</strong> ARROW KEYS</p>
+                    <p>AVOID OBSTACLES!</p>
+                    <p>SURVIVE AS LONG AS YOU CAN!</p>
+                </div>
+                <button id="start-button" class="button">START</button>
+                <div class="best-score">
+                    <div class="score-label">Best Score</div>
+                    <div class="score-value" id="best-score">0</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="game-screen" class="screen" style="display: none;">
+            <div class="game-ui">
+                SCORE: <span id="current-score">0</span>
+            </div>
+        </div>
+
+        <!-- Game Over Screen -->
+        <div id="game-over-screen" class="screen" style="display: none;">
+            <div class="screen-content">
+                <h2>GAME OVER</h2>
+                <div class="final-score">
+                    <div class="score-label">Final Score</div>
+                    <div class="score-value" id="final-score">0</div>
+                </div>
+                <div class="best-score">
+                    <div class="score-label">Best Score</div>
+                    <div class="score-value" id="best-score">0</div>
+                </div>
+                <button id="restart-button" class="button">RESTART</button>
+            </div>
+        </div>
+
+    <script type="module" src="js/main.js"></script>
 </body>
 </html>

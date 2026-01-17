@@ -1,0 +1,63 @@
+#game-canvas {
+    display: block;
+    background: #2a2a2a;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.road {
+    position: absolute;
+    width: 600px;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 100%;
+    background: #404040;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+}
+
+/* Road edges */
+.road::before,
+.road::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        rgb(31, 31, 31) 0px,
+        rgb(31, 31, 31) 90px,
+        #ffffff 90px,
+        #ffffff 180px
+    );
+}
+
+.road::before {
+    left: 0;
+}
+
+.road::after {
+    right: 0;
+}
+
+/* Lane markers */
+.lane-marker {
+    position: absolute;
+    width: 10px;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent 0px,
+        transparent 40px,
+        #ffffff 40px,
+        #ffffff 180px
+    );
+}
+
+.lane-marker.left {
+    left: 200px;
+}
+
+.lane-marker.right {
+    right: 200px;
+}
