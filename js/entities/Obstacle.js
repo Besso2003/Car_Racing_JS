@@ -21,12 +21,16 @@ export default class Obstacle {
   }
 
   update(deltaTime) {
-    this.y += this.speed * deltaTime; // Move downwards with speed and deltaTime
+    this.y += this.speed * (deltaTime / 1000); // Move downwards with speed and deltaTime
     this.updatePosition();
   }
 
   updatePosition() {
     this.element.style.transform = `translate(${this.x}px, ${this.y}px)`; // Use css gpu transform for better performance while animating, translate(x,y) sets the transformation to a new position
+  }
+
+  isOutOfScreen(screenHeight) {
+    return this.y > screenHeight;
   }
 
   destroy() {
