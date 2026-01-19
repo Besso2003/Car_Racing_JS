@@ -54,9 +54,8 @@ export default class GameEngine {
   }
 
   gameOver() {
-    this.isRunning = false;
+    this.stop();
     this.state = GAME_STATE.GAME_OVER;
-
     this.scoreManager.stop();
     this.uiManager.showGameOver(this.scoreManager.getScore());
   }
@@ -68,7 +67,14 @@ export default class GameEngine {
     this.uiManager.reset();
   }
 
+  stop() {
+    this.isRunning = false;
+  }
+
   restart() {
-    this.start();
+    this.stop();
+    this.reset();
+    this.state = GAME_STATE.START;
+    this.uiManager.showStartScreen();
   }
 }
