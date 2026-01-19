@@ -1,0 +1,17 @@
+#player-car img {
+    position: absolute;
+    width: 130px;
+    height: 170px;
+    bottom: 20px;
+    transition: left 0.15s ease; 
+    object-fit: contain;
+} 
+
+#game {
+    position: relative;
+    width: 400px;
+    height: 100vh;
+    margin: auto;
+
+    /* overflow: hidden; */
+}
