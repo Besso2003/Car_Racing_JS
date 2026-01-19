@@ -1,4 +1,5 @@
 // js/entities/Player.js
+//==================== Player.js =================//
 import { LANES } from "../core/constants.js";
 
 export default class Player {

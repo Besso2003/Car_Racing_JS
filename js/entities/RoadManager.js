@@ -1,4 +1,6 @@
 // js/entities/RoadManager.js
+
+//==================== RoadManager.js =================//
 export default class RoadManager {
   constructor() {
     this.roadElement = document.querySelector('.road');

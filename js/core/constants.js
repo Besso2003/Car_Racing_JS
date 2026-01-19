@@ -1,4 +1,5 @@
 // js/core/constants.js
+//==================== constants.js =================//
 
 export const ROAD_WIDTH = 600;
 export const PLAYER_WIDTH = 80;
