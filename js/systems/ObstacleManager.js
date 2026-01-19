@@ -22,8 +22,6 @@ export default class ObstacleManager {
   }
 
   update(deltaTime) {
-
-    console.log("update running");
     
     this.replicateTimer += deltaTime;
     this.difficultyTimer += deltaTime;
@@ -40,9 +38,9 @@ export default class ObstacleManager {
       this.difficultyTimer = 0;
     }
     if (this.obstacles.length === 0) {
-        console.log("FORCED REPLICATION");
         this.replicateObstacle(); // FORCE replication if no obstacles
     }
+    
     // Update obstacles
     this.obstacles.forEach(obstacle => obstacle.update(deltaTime));
 

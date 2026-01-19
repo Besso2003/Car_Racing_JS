@@ -3,12 +3,14 @@ import ScoreManager from './systems/ScoreManager.js';
 import StorageManager from './storage/StorageManager.js';
 
 import Obstacle from "./entities/Obstacle.js";
+import ObstacleManager from './systems/ObstacleManager.js';
 import { LANES, GAME_HEIGHT } from "./core/constants.js";
 
 // Initialize managers
 const uiManager = new UIManager();
 const scoreManager = new ScoreManager();
 const storageManager = new StorageManager();
+const obstacleManager = new ObstacleManager();
 
 
 uiManager.updateBestScore(storageManager.getBestScore());
@@ -43,17 +45,14 @@ function gameLoop() {
     }
 }
 
-// Test obstacle creation and movement
 let lastTime = performance.now();
-const obstacle = new Obstacle(1, LANES, 300);
 
-function testLoop(time) {
-  const deltaTime = (time - lastTime) / 1000;
+function obstacleLoop(time) {
+  const deltaTime = time - lastTime;
   lastTime = time;
 
-  obstacle.update(deltaTime);
-
-  requestAnimationFrame(testLoop);
+  obstacleManager.update(deltaTime);
+  requestAnimationFrame(obstacleLoop);
 }
 
-requestAnimationFrame(testLoop);
+requestAnimationFrame(obstacleLoop);
