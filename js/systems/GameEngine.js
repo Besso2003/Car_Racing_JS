@@ -49,8 +49,6 @@ export default class GameEngine {
 
     this.update(deltaTime);
 
-    this.uiManager.render();
-
     requestAnimationFrame(this.loop.bind(this));
   }
 
