@@ -17,7 +17,7 @@ export default class Obstacle {
     this.element.style.backgroundColor = this.color;
 
     this.updatePosition();
-    document.querySelector(".road").appendChild(this.element); 
+    document.querySelector(".road").appendChild(this.element);
   }
 
   update(deltaTime) {

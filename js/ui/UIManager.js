@@ -101,6 +101,20 @@ class UIManager {
       }
     });
   }
+
+  render() {
+    /*
+    // Render player
+    if (this.player && this.player.render) {
+      this.player.render();
+    }
+      */
+
+    // Render obstacles
+    if (this.obstacleManager && this.obstacleManager.render) {
+      this.obstacleManager.render();
+    }
+  }
 }
 
 export default UIManager;

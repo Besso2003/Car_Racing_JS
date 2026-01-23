@@ -12,7 +12,7 @@ export default class ObstacleManager {
   }
 
   reset() {
-    this.obstacles.forEach(o => o.destroy());
+    this.obstacles.forEach((o) => o.destroy());
     this.obstacles = [];
     this.replicateTimer = 0;
     this.replicateInterval = 1500;
@@ -22,12 +22,11 @@ export default class ObstacleManager {
   }
 
   update(deltaTime) {
-    
     this.replicateTimer += deltaTime;
     this.difficultyTimer += deltaTime;
 
     // Replicate new obstacle
-    if (this.replicateTimer > this.replicateInterval) { 
+    if (this.replicateTimer > this.replicateInterval) {
       this.replicateObstacle();
       this.replicateTimer = 0;
     }
@@ -38,14 +37,14 @@ export default class ObstacleManager {
       this.difficultyTimer = 0;
     }
     if (this.obstacles.length === 0) {
-        this.replicateObstacle(); // FORCE replication if no obstacles
+      this.replicateObstacle(); // FORCE replication if no obstacles
     }
-    
+
     // Update obstacles
-    this.obstacles.forEach(obstacle => obstacle.update(deltaTime));
+    this.obstacles.forEach((obstacle) => obstacle.update(deltaTime));
 
     // Remove off-screen obstacles
-    this.obstacles = this.obstacles.filter(obstacle => {
+    this.obstacles = this.obstacles.filter((obstacle) => {
       if (obstacle.isOutOfScreen(GAME_HEIGHT)) {
         obstacle.destroy();
         return false;
@@ -70,5 +69,8 @@ export default class ObstacleManager {
 
   getObstacles() {
     return this.obstacles;
+  }
+  render() {
+    this.obstacles.forEach((obstacle) => obstacle.updatePosition());
   }
 }

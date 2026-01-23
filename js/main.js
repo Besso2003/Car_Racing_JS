@@ -27,6 +27,8 @@ const collisionSystem = new CollisionSystem(player, obstacleManager);
 const scoreManager = new ScoreManager();
 const storageManager = new StorageManager();
 const uiManager = new UIManager(player);
+uiManager.obstacleManager = obstacleManager;
+uiManager.roadManager = roadManager;
 
 // -------------------------------------------------
 // Create Game Engine (single source of truth)
