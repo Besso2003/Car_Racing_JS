@@ -57,6 +57,17 @@ export default class Player {
     };
   }
 
+  getBoundingBox() {
+  const rect = this.element.getBoundingClientRect();
+  return {
+    x: rect.left,
+    y: rect.top,
+    width: rect.width,
+    height: rect.height,
+  };
+}
+
+
   reset() {
     this.currentLane = 1;
     this.render();
