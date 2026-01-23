@@ -59,7 +59,7 @@
     right: 200px;
 }
 
-<<<<<<< HEAD
+
 /* Stripe container */
 .stripe-container {
     position: absolute;
@@ -78,11 +78,10 @@
     border-radius: 4px;
     left: 50%;
     transform: translateX(-50%);
-=======
+}
 .obstacle {
   position: absolute;
   width: 200px;
   height: 150px;
   background-color: red;
->>>>>>> feature/managing-obstacles
 }
