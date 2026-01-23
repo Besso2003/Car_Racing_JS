@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // js/core/constants.js
 //==================== constants.js =================//
 
@@ -13,3 +14,12 @@ export const LANE_PERCENTAGES = [
 
 // No need for complex calculations!
 export const LANES = LANE_PERCENTAGES;
+=======
+export const GAME_HEIGHT = 600;
+
+export const LANES = [
+  100, // left
+  200, // middle
+  300  // right
+];
+>>>>>>> feature/managing-obstacles

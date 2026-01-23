@@ -5,6 +5,10 @@ import UIManager from "./ui/UIManager.js";
 import ScoreManager from "./systems/ScoreManager.js";
 import StorageManager from "./storage/StorageManager.js";
 
+import Obstacle from "./entities/Obstacle.js";
+import ObstacleManager from "./systems/ObstacleManager.js";
+import { LANES, GAME_HEIGHT } from "./core/constants.js";
+
 // Initialize managers
 let player = null;
 let roadManager = null;
@@ -13,6 +17,7 @@ let isGameRunning = false;
 const uiManager = new UIManager(null);
 const scoreManager = new ScoreManager();
 const storageManager = new StorageManager();
+const obstacleManager = new ObstacleManager();
 
 const engine = new GameEngine({
   player,
@@ -55,7 +60,6 @@ function gameLoop() {
     requestAnimationFrame(gameLoop);
   }
 }
-
 */
 
 uiManager.showGameScreen();
@@ -157,3 +161,15 @@ window.gameOver = function () {
 
   uiManager.showGameOverScreen(currentScore);
 };
+
+let lastTime = performance.now();
+
+function obstacleLoop(time) {
+  const deltaTime = time - lastTime;
+  lastTime = time;
+
+  obstacleManager.update(deltaTime);
+  requestAnimationFrame(obstacleLoop);
+}
+
+requestAnimationFrame(obstacleLoop);
