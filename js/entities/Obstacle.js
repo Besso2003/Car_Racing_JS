@@ -37,6 +37,17 @@ export default class Obstacle {
     return this.y > screenHeight;
   }
 
+  getBoundingBox() {
+  const rect = this.element.getBoundingClientRect();
+  return {
+    x: rect.left,
+    y: rect.top,
+    width: rect.width,
+    height: rect.height,
+  };
+}
+
+
   destroy() {
     this.element.remove();
   }
