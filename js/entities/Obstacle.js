@@ -1,9 +1,12 @@
+import { LANE_WIDTH } from "../core/constants.js";
+
 export default class Obstacle {
   constructor(laneIndex, lanePositions, speed) {
     this.laneIndex = laneIndex;
-    this.x = lanePositions[laneIndex];
+    //this.width = this.element.offsetWidth;
+    this.x = lanePositions[laneIndex] - LANE_WIDTH / 2;
     this.y = -100; // start above screen
-    this.width = 200;
+    this.width = 180;
     this.height = 150;
     this.speed = speed;
 
@@ -26,7 +29,8 @@ export default class Obstacle {
   }
 
   updatePosition() {
-    this.element.style.transform = `translate(${this.x}px, ${this.y}px)`; // Use css gpu transform for better performance while animating, translate(x,y) sets the transformation to a new position
+    this.element.style.left = `${this.x}px`;
+    this.element.style.top = `${this.y}px`;
   }
 
   isOutOfScreen(screenHeight) {

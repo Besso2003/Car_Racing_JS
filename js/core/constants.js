@@ -2,6 +2,7 @@
 //==================== constants.js =================//
 
 export const ROAD_WIDTH = 600;
+export const LANE_WIDTH = 200;
 export const PLAYER_WIDTH = 80;
 
 // Lane positions as PERCENTAGES of road width (much simpler!)
@@ -17,7 +18,7 @@ export const LANE_PERCENTAGES = [
 export const GAME_HEIGHT = 600;
 
 export const LANES = [
-  100, // left
-  200, // middle
-  300, // right
+  120,  // left lane center
+  310,  // middle lane center
+  500   // right lane center
 ];
