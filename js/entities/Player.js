@@ -3,58 +3,62 @@
 import { LANES } from "../core/constants.js";
 
 export default class Player {
-    constructor() {
-        this.currentLane = 1; // Start in middle lane
-        this.x = LANES[this.currentLane];
+  constructor() {
+    this.currentLane = 1; // Start in middle lane
+    this.x = LANES[this.currentLane];
 
-        this.element = document.getElementById("player-car");
-        this.isMoving = false;
+    this.element = document.getElementById("player-car");
+    this.isMoving = false;
 
-        // Position the car in the center of the road
-        this.render();
+    // Position the car in the center of the road
+    this.render();
+  }
+
+  render() {
+    if (this.element) {
+      this.element.style.left = `${LANES[this.currentLane]}%`;
     }
+  }
 
-    render() {
-        if (this.element) {
-            this.element.style.left = `${LANES[this.currentLane]}%`;
-        }
-    }
+  moveLeft() {
+    if (this.isMoving) return;
+    if (this.currentLane <= 0) return;
 
-    moveLeft() {
-        if (this.isMoving) return;
-        if (this.currentLane <= 0) return;
+    this.currentLane--;
+    this.lockMovement();
+  }
 
-        this.currentLane--;
-        this.lockMovement();
-    }
+  moveRight() {
+    if (this.isMoving) return;
+    if (this.currentLane >= LANES.length - 1) return;
 
-    moveRight() {
-        if (this.isMoving) return;
-        if (this.currentLane >= LANES.length - 1) return;
+    this.currentLane++;
+    this.lockMovement();
+  }
 
-        this.currentLane++;
-        this.lockMovement();
-    }
+  lockMovement() {
+    this.isMoving = true;
+    this.x = LANES[this.currentLane];
+    this.render();
 
+    setTimeout(() => {
+      this.isMoving = false;
+    }, 150);
+  }
 
-    lockMovement() {
-        this.isMoving = true;
-        this.x = LANES[this.currentLane];
-        this.render();
+  getCurrentLane() {
+    return this.currentLane;
+  }
 
-        setTimeout(() => {
-            this.isMoving = false;
-        }, 150);
-    }
+  getPosition() {
+    return {
+      x: this.x,
+      lane: this.currentLane,
+    };
+  }
 
-    getCurrentLane() {
-        return this.currentLane;
-    }
-
-    getPosition() {
-        return {
-            x: this.x,
-            lane: this.currentLane
-        };
-    }
+  reset() {
+    this.currentLane = 1;
+    this.render();
+  }
 }

@@ -1,35 +1,58 @@
 // js/main.js
+// ================== ENTRY POINT ==================
+// This file is ONLY responsible for:
+// 1. Creating objects
+// 2. Wiring dependencies
+// 3. Connecting UI events to the engine
+// -------------------------------------------------
+
+import GameEngine from "./systems/GameEngine.js";
+
 import Player from "./entities/Player.js";
-import RoadManager from "./entities/RoadManager.js";
-import UIManager from "./ui/UIManager.js";
+import RoadManager from "./systems/RoadManager.js";
+import ObstacleManager from "./systems/ObstacleManager.js";
+import CollisionSystem from "./systems/CollisionSystem.js";
 import ScoreManager from "./systems/ScoreManager.js";
 import StorageManager from "./storage/StorageManager.js";
+import UIManager from "./ui/UIManager.js";
 
-import Obstacle from "./entities/Obstacle.js";
-import ObstacleManager from "./systems/ObstacleManager.js";
-import { LANES, GAME_HEIGHT } from "./core/constants.js";
+// -------------------------------------------------
+// Create core game objects
+// -------------------------------------------------
 
-// Initialize managers
-let player = null;
-let roadManager = null;
-let isGameRunning = false;
-
-const uiManager = new UIManager(null);
+const player = new Player();
+const roadManager = new RoadManager();
+const obstacleManager = new ObstacleManager();
+const collisionSystem = new CollisionSystem(player, obstacleManager);
 const scoreManager = new ScoreManager();
 const storageManager = new StorageManager();
-const obstacleManager = new ObstacleManager();
+const uiManager = new UIManager(player);
+
+// -------------------------------------------------
+// Create Game Engine (single source of truth)
+// -------------------------------------------------
 
 const engine = new GameEngine({
   player,
+  roadManager,
   obstacleManager,
   collisionSystem,
   scoreManager,
   uiManager,
+  storageManager,
 });
 
-uiManager.updateBestScore(storageManager.getBestScore());
+// -------------------------------------------------
+// Initialize UI state
+// -------------------------------------------------
 
-// Set up UI callbacks
+uiManager.updateBestScore(storageManager.getBestScore());
+uiManager.showStartScreen();
+
+// -------------------------------------------------
+// Wire UI → Engine callbacks
+// -------------------------------------------------
+
 uiManager.setStartGameCallback(() => {
   engine.start();
 });
@@ -38,138 +61,13 @@ uiManager.setRestartGameCallback(() => {
   engine.restart();
 });
 
-/*
-function startGame() {
+// -------------------------------------------------
+// Input handling (delegated to engine/player)
+// -------------------------------------------------
 
-  scoreManager.startScoring();
-  uiManager.showGameScreen();
-  gameLoop();
-}
+window.addEventListener("keydown", (e) => {
+  if (!engine.isRunning()) return;
 
-function restartGame() {
-  scoreManager.resetScore();
-  uiManager.showStartScreen();
-  // Reset any game state here
-}
-
-function gameLoop() {
-  if (uiManager.currentScreen === "game") {
-    scoreManager.updateScore();
-    uiManager.updateCurrentScore(scoreManager.getCurrentScore());
-
-    requestAnimationFrame(gameLoop);
-  }
-}
-*/
-
-uiManager.showGameScreen();
-
-// Initialize player
-player = new Player();
-uiManager.player = player;
-
-// Initialize road manager
-roadManager = new RoadManager();
-
-// Setup input controls
-setupControls();
-
-// Reset and start scoring
-scoreManager.resetScore();
-scoreManager.startScoring();
-
-// Start game loop
-isGameRunning = true;
-gameLoop();
-
-function restartGame() {
-  isGameRunning = false;
-
-  // Save best score
-  const currentScore = scoreManager.getCurrentScore();
-  const bestScore = storageManager.getBestScore();
-  if (currentScore > bestScore) {
-    storageManager.saveBestScore(currentScore);
-  }
-
-  scoreManager.resetScore();
-  uiManager.showStartScreen();
-
-  // Clean up
-  player = null;
-  uiManager.player = null;
-  roadManager = null;
-
-  // Remove event listeners
-  removeControls();
-}
-
-function setupControls() {
-  window.addEventListener("keydown", handleKeyPress);
-}
-
-function removeControls() {
-  window.removeEventListener("keydown", handleKeyPress);
-}
-
-function handleKeyPress(e) {
-  if (!player || !isGameRunning) return;
-
-  if (e.key === "ArrowLeft") {
-    player.moveLeft();
-  } else if (e.key === "ArrowRight") {
-    player.moveRight();
-  }
-}
-
-function gameLoop() {
-  if (!isGameRunning || uiManager.currentScreen !== "game") {
-    return;
-  }
-
-  // Update road animation
-  if (roadManager) {
-    roadManager.update();
-  }
-
-  // Update score
-  scoreManager.updateScore();
-  uiManager.updateCurrentScore(scoreManager.getCurrentScore());
-
-  // Optionally increase road speed over time
-  if (
-    scoreManager.getCurrentScore() % 500 === 0 &&
-    scoreManager.getCurrentScore() > 0
-  ) {
-    roadManager.increaseSpeed();
-  }
-
-  requestAnimationFrame(gameLoop);
-}
-
-// Handle game over (you can call this from collision detection)
-window.gameOver = function () {
-  isGameRunning = false;
-
-  const currentScore = scoreManager.getCurrentScore();
-  const bestScore = storageManager.getBestScore();
-
-  if (currentScore > bestScore) {
-    storageManager.saveBestScore(currentScore);
-    uiManager.updateBestScore(currentScore);
-  }
-
-  uiManager.showGameOverScreen(currentScore);
-};
-
-let lastTime = performance.now();
-
-function obstacleLoop(time) {
-  const deltaTime = time - lastTime;
-  lastTime = time;
-
-  obstacleManager.update(deltaTime);
-  requestAnimationFrame(obstacleLoop);
-}
-
-requestAnimationFrame(obstacleLoop);
+  if (e.key === "ArrowLeft") player.moveLeft();
+  if (e.key === "ArrowRight") player.moveRight();
+});

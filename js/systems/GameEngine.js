@@ -5,76 +5,107 @@ const GAME_STATE = {
 };
 
 export default class GameEngine {
-  constructor(dependencies) {
-    this.player = dependencies.player;
-    this.obstacleManager = dependencies.obstacleManager;
-    this.collisionSystem = dependencies.collisionSystem;
-    this.scoreManager = dependencies.scoreManager;
-    this.uiManager = dependencies.uiManager;
+  constructor({
+    player,
+    roadManager,
+    obstacleManager,
+    collisionSystem,
+    scoreManager,
+    uiManager,
+    storageManager,
+  }) {
+    this.player = player;
+    this.roadManager = roadManager;
+    this.obstacleManager = obstacleManager;
+    this.collisionSystem = collisionSystem;
+    this.scoreManager = scoreManager;
+    this.uiManager = uiManager;
+    this.storageManager = storageManager;
 
     this.state = GAME_STATE.START;
     this.lastFrameTime = 0;
-    this.isRunning = false;
+    this.running = false;
   }
+
+  /* ================= LIFECYCLE ================= */
 
   start() {
     this.reset();
     this.state = GAME_STATE.RUNNING;
-    this.isRunning = true;
+    this.running = true;
+
+    this.scoreManager.startScoring();
+    this.uiManager.showGameScreen();
+
     this.lastFrameTime = performance.now();
     requestAnimationFrame(this.loop.bind(this));
   }
 
   loop(timestamp) {
-    if (!this.isRunning) return;
+    if (!this.running) return;
 
     const deltaTime = timestamp - this.lastFrameTime;
     this.lastFrameTime = timestamp;
 
     this.update(deltaTime);
-    this.render();
+
+    this.uiManager.render();
 
     requestAnimationFrame(this.loop.bind(this));
   }
 
   update(deltaTime) {
-    this.player.update(deltaTime);
-    this.obstacleManager.update(deltaTime);
-    this.collisionSystem.check();
+    if (this.state !== GAME_STATE.RUNNING) return;
 
-    if (this.collisionSystem.hasCollision()) {
+    // Animate road
+    this.roadManager.update();
+
+    // Obstacles
+    this.obstacleManager.update(deltaTime);
+
+    // Collision
+    if (this.collisionSystem.check()) {
       this.gameOver();
+      return;
     }
 
-    this.scoreManager.update(deltaTime);
+    // Score
+    const score = this.scoreManager.updateScore();
+    this.uiManager.updateCurrentScore(score);
   }
 
-  render() {
-    this.uiManager.render();
-  }
+  /* ================= GAME OVER ================= */
 
   gameOver() {
-    this.stop();
+    this.running = false;
     this.state = GAME_STATE.GAME_OVER;
-    this.scoreManager.stop();
-    this.uiManager.showGameOver(this.scoreManager.getScore());
+
+    const finalScore = this.scoreManager.stopScoring();
+    const bestScore = this.storageManager.getBestScore();
+
+    if (finalScore > bestScore) {
+      this.storageManager.saveBestScore(finalScore);
+      this.uiManager.updateBestScore(finalScore);
+    }
+
+    this.uiManager.showGameOverScreen(finalScore, bestScore);
   }
+
+  /* ================= RESET / RESTART ================= */
 
   reset() {
-    this.player.reset();
     this.obstacleManager.reset();
-    this.scoreManager.reset();
-    this.uiManager.reset();
-  }
-
-  stop() {
-    this.isRunning = false;
+    this.scoreManager.resetScore();
+    this.roadManager.resetSpeed();
   }
 
   restart() {
-    this.stop();
-    this.reset();
+    this.running = false;
     this.state = GAME_STATE.START;
     this.uiManager.showStartScreen();
+  }
+
+  isRunning() {
+    return this.running && this.state === GAME_STATE.RUNNING;
   }
 }
