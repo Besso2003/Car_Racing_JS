@@ -70,7 +70,4 @@ export default class ObstacleManager {
   getObstacles() {
     return this.obstacles;
   }
-  render() {
-    this.obstacles.forEach((obstacle) => obstacle.updatePosition());
-  }
 }
