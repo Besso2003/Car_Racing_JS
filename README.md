@@ -1,7 +1,9 @@
-# Car Racing
+# Car Racing Game
 
 ## Game Name
 Car Racing
+
+---
 
 ## Team Members
 1. Bassant Ali Kamal  
@@ -11,51 +13,139 @@ Car Racing
 5. Sherif Mohammed Mohammed  
 6. Shahd Mohammed Ramadan  
 
+---
+
 ## Game Idea
-A fast-paced arcade game where the player controls a car moving left and right to avoid obstacles on a busy road. The game gradually increases in speed and difficulty over time, with more obstacles appearing as the player survives longer. Colliding with an obstacle immediately ends the game, requiring quick reflexes and focus from the player.  
+A fast-paced arcade-style car racing game where the player controls a car moving left and right across multiple lanes to avoid incoming obstacles.  
+The game gradually increases in speed and difficulty, challenging the player’s reflexes and focus.  
+A single collision ends the game immediately.
+
+---
 
 ## Game Objectives
-- **Player Goal:** Avoid obstacles and survive as long as possible to achieve a high score.  
-- **Win Condition:** There is no fixed win; the goal is to reach the highest possible score.  
-- **Lose Condition:** The game ends immediately when the player’s car collides with an obstacle.  
 
-## Planned Features
+- **Player Goal:** Survive as long as possible and achieve the highest score.
+- **Win Condition:** No fixed win condition — aim for the highest score.
+- **Lose Condition:** Colliding with any obstacle ends the game instantly.
+
+---
+
+## Features
 
 ### Mandatory Features
-- Player car movement (left/right) using keyboard controls  
-- Randomly generated falling obstacles  
-- Increasing speed over time to make the game harder  
-- Increasing number of obstacles as time progresses  
-- Collision detection between the player car and obstacles  
-- Score tracking based on survival time or distance  
-- Progress saved in the browser using local storage  
+- Player car movement using keyboard controls (Left / Right arrows)
+- Three road lanes (left, middle, right)
+- Randomly generated falling obstacles
+- Increasing obstacle speed over time
+- Increasing number of obstacles as time progresses
+- Collision detection between player and obstacles
+- Score tracking based on survival time
+- Best score saved using `localStorage`
 
 ### Bonus Features
-- Multiple road lanes  
-- Animated road background  
-- Sound effects  
+- Animated road background (moving lane lines)
+- Sound Effects (car moving, tires skid, collision sound)
+
+---
 
 ## High-Level Game Flow
-1. Start screen displays the game title and controls  
-2. Player starts the game  
-3. Obstacles fall from the top of the road  
-4. Obstacle speed gradually increases over time  
-5. More obstacles appear as the game progresses  
-6. Player moves left/right to avoid obstacles  
-7. Score increases with survival time  
-8. Collision ends the game immediately  
-9. Game over screen displays the final score and optionally saves it in the browser  
+1. Start screen is displayed
+2. Player presses **Start**
+3. Game loop begins
+4. Obstacles spawn and fall down the road
+5. Speed and difficulty increase over time
+6. Player avoids obstacles by switching lanes
+7. Score increases continuously
+8. Collision triggers game over
+9. Final score and best score are displayed
+10. Player can restart the game
+
+---
+
+## System Architecture (High Level)
+
+The game is built using a **modular JavaScript architecture**, where each module has a single responsibility.
+
+### Core Modules
+- **GameEngine** – Controls game loop and state (start, running, game over)
+- **Player** – Handles player movement and controls
+- **ObstacleManager** – Generates and updates obstacles
+- **CollisionSystem** – Detects collisions and triggers game over
+- **ScoreManager** – Calculates and updates score
+- **StorageManager** – Saves and loads best score
+- **UIManager** – Manages screens and UI updates
+- **RoadManager** – Animates the road and manages engine sound
+
+---
+
+## Project Structure
+```
+Car_Racing_JS/
+│
+├── index.html
+├── README.md
+│
+├── css/
+│   ├── main.css
+│   ├── player.css
+│   ├── road.css
+│   └── ui.css
+│
+├── images/
+│
+├── sounds/
+│   ├── car_moving.m4a
+│   ├── car-driving.wav
+│   ├── collision_sound.m4a
+│   └── tire_skid.m4a
+│
+├── js/
+│   ├── core/
+│   │   └── constants.js
+│   │
+│   ├── entities/
+│   │   ├── Player.js
+│   │   └── Obstacle.js
+│   │
+│   ├── systems/
+│   │   ├── GameEngine.js
+│   │   ├── RoadManager.js
+│   │   ├── ObstacleManager.js
+│   │   ├── CollisionSystem.js
+│   │   └── ScoreManager.js
+│   │
+│   ├── storage/
+│   │   └── StorageManager.js
+│   │
+│   ├── ui/
+│   │   └── UIManager.js
+│   │
+│   └── main.js
+
+
+---
 
 ## Team Responsibilities
 
 | Team Member | Responsibility |
-|------------|-----------------|
-| Bassant Ali Kamal | Game logic and player movement |
-| Heba Maher Abdelrahman | Score calculation and saving progress |
-| Ibrahim Elsayed Mostafa | Obstacle generation and collision detection |
-| Sherif Mohammed Mohammed | Difficulty scaling and game flow |
-| Mostafa Ahmed Ibrahim | Bonus features and testing |
-| Shahd Mohammed Ramadan | UI design and road styling |
+|------------|----------------|
+| Bassant Ali Kamal | Collision detection & game flow |
+| Heba Maher Abdelrahman | Obstacle behavior & difficulty scaling |
+| Ibrahim Elsayed Mostafa | Obstacle generation & logic |
+| Sherif Mohammed Mohammed | UI, score handling & storage |
+| Mostafa Ahmed Ibrahim | Bonus features & testing |
+| Shahd Mohammed Ramadan | Player movement & controls |
+
+---
+
+## Technologies Used
+- HTML5
+- CSS3
+- JavaScript (ES6 Modules)
+
+---
 
 ## GitHub Repository
-[https://github.com/Besso2003/Car_Racing_JS](https://github.com/Besso2003/Car_Racing_JS)
+🔗 https://github.com/Besso2003/Car_Racing_JS
+
+---

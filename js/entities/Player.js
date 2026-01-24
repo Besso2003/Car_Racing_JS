@@ -10,7 +10,7 @@ export default class Player {
 
     // Load tire sound
     this.tireSound = new Audio("../sounds/tire_skid.m4a");
-    this.tireSound.volume = 0.3; // optional: adjust volume 0-1
+    this.tireSound.volume = 0.3;
 
     // Position the car in the center of the road
     this.render();
