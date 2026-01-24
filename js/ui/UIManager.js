@@ -13,7 +13,7 @@ class UIManager {
       restartButton: document.getElementById("restart-button"),
       currentScore: document.getElementById("current-score"),
       finalScore: document.getElementById("final-score"),
-      bestScore: document.getElementById("best-score"),
+      bestScore: document.querySelectorAll(".best-score-value"),
     };
 
     this.currentScreen = "start";
@@ -58,9 +58,12 @@ class UIManager {
 
   updateBestScore(score) {
     if (this.elements.bestScore) {
-      this.elements.bestScore.textContent = Math.floor(score);
+      this.elements.bestScore.forEach((el) => {
+        el.textContent = Math.floor(score);
+      });
     }
   }
+
 
   showStartScreen() {
     this.showScreen("start");
