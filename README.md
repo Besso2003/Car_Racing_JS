@@ -1,8 +1,5 @@
 # Car Racing Game
 
-## Game Name
-Car Racing
-
 ---
 
 ## Team Members
