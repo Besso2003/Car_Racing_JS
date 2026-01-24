@@ -11,6 +11,13 @@ export default class RoadManager {
     this.speed = 5; // pixels per frame
     this.stripeHeight = 120; // height of one stripe segment
     
+    // car on road sound
+    this.carsound = new Audio("./sounds/car-driving.wav");
+    this.carsound.loop = true;
+    this.carsound.volume = 0.3;
+
+    this.engineStarted = false;
+
     this.createStripes();
   }
 
@@ -41,6 +48,12 @@ export default class RoadManager {
   update() {
     // Update offset
     this.offset += this.speed;
+
+    // start car sound when moving
+    if (this.speed > 0 && !this.engineStarted) {
+      this.carsound.play().catch(() => {});
+      this.engineStarted = true;
+    }
     
     // Reset when one full stripe has passed
     if (this.offset >= this.stripeHeight) {
@@ -76,5 +89,10 @@ export default class RoadManager {
 
   stop() {
     this.speed = 0;
+
+    // stop car sound
+    this.carsound.pause();
+    this.carsound.currentTime = 0;
+    this.engineStarted = false;
   }
 }
