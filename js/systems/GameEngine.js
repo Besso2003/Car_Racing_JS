@@ -79,9 +79,10 @@ export default class GameEngine {
     this.state = GAME_STATE.GAME_OVER;
 
     const finalScore = this.scoreManager.stopScoring();
-    const bestScore = this.storageManager.getBestScore();
+    let bestScore = this.storageManager.getBestScore();
 
     if (finalScore > bestScore) {
+      bestScore = finalScore;
       this.storageManager.saveBestScore(finalScore);
       this.uiManager.updateBestScore(finalScore);
     }
