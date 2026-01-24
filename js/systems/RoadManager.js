@@ -45,36 +45,30 @@ export default class RoadManager {
     return container;
   }
 
-update() {
-  // Update offset
-  this.offset += this.speed;
+  update() {
+    // Update offset
+    this.offset += this.speed;
 
-  // start car sound when moving
-  if (this.speed > 0 && !this.engineStarted) {
-    this.carsound.play().catch(() => {});
-    this.engineStarted = true;
+    // start car sound when moving
+    if (this.speed > 0 && !this.engineStarted) {
+      this.carsound.play().catch(() => {});
+      this.engineStarted = true;
+    }
+    
+    // Reset when one full stripe has passed
+    if (this.offset >= this.stripeHeight) {
+      this.offset = 0;
+    }
+    
+    // Update all stripes position
+    this.updateStripes(this.leftStripes);
+    this.updateStripes(this.rightStripes);
+    
+    // Update road edges animation
+    if (this.roadElement) {
+      this.roadElement.style.setProperty('--road-offset', `${this.offset}px`);
+    }
   }
-
-  // smooth manual loop to avoid click at the end
-  if (this.carsound.duration && this.carsound.currentTime >= this.carsound.duration - 0.05) {
-    this.carsound.currentTime = 0; // jump back 50ms before the end
-  }
-  
-  // Reset when one full stripe has passed
-  if (this.offset >= this.stripeHeight) {
-    this.offset = 0;
-  }
-  
-  // Update all stripes position
-  this.updateStripes(this.leftStripes);
-  this.updateStripes(this.rightStripes);
-  
-  // Update road edges animation
-  if (this.roadElement) {
-    this.roadElement.style.setProperty('--road-offset', `${this.offset}px`);
-  }
-}
-
 
   updateStripes(container) {
     const stripes = container.querySelectorAll('.road-stripe');
