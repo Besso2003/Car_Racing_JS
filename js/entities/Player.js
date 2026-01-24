@@ -1,5 +1,3 @@
-// js/entities/Player.js
-//==================== Player.js =================//
 import { LANE_PERCENTAGES as LANES } from "../core/constants.js";
 
 export default class Player {
@@ -9,6 +7,10 @@ export default class Player {
 
     this.element = document.getElementById("player-car");
     this.isMoving = false;
+
+    // Load tire sound
+    this.tireSound = new Audio("../sounds/tire_skid.m4a");
+    this.tireSound.volume = 0.3; // optional: adjust volume 0-1
 
     // Position the car in the center of the road
     this.render();
@@ -25,6 +27,7 @@ export default class Player {
     if (this.currentLane <= 0) return;
 
     this.currentLane--;
+    this.playTireSound();
     this.lockMovement();
   }
 
@@ -33,6 +36,7 @@ export default class Player {
     if (this.currentLane >= LANES.length - 1) return;
 
     this.currentLane++;
+    this.playTireSound();
     this.lockMovement();
   }
 
@@ -44,6 +48,12 @@ export default class Player {
     setTimeout(() => {
       this.isMoving = false;
     }, 150);
+  }
+
+  playTireSound() {
+    // Play from start each time
+    this.tireSound.currentTime = 0;
+    this.tireSound.play();
   }
 
   getCurrentLane() {
@@ -58,15 +68,14 @@ export default class Player {
   }
 
   getBoundingBox() {
-  const rect = this.element.getBoundingClientRect();
-  return {
-    x: rect.left,
-    y: rect.top,
-    width: rect.width,
-    height: rect.height,
-  };
-}
-
+    const rect = this.element.getBoundingClientRect();
+    return {
+      x: rect.left,
+      y: rect.top,
+      width: rect.width,
+      height: rect.height,
+    };
+  }
 
   reset() {
     this.currentLane = 1;
